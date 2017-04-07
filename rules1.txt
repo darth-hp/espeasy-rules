@@ -1,0 +1,50 @@
+// Central (event based) definition to switch relay on/off
+// If you have a LED that should show the relay state you should add that here
+on RelayOff do
+  gpio,12,0
+endon
+on RelayOn do
+  gpio,12,1
+endon
+
+// Allow local Button switch
+on Button#State do
+ if [Relay#State]=1
+   event RelayOff
+ else
+   event RelayOn
+ endif
+endon
+
+// Init
+on System#Boot do
+  // Switch on WLAN LED - optional, used on S20
+  gpio,13,0
+  // Trigger Rules#Timer=1 after 5 seconds
+  // At this time NTP should be set
+  timerSet,1,5
+endon
+
+// Timer Clock - adjust to your needs
+on Clock#Time=All,12:00 do
+  event RelayOn
+endon
+on Clock#Time=All,22:00 do
+  event RelayOff
+endon
+
+// Set switch state after boot - adjust to your needs
+on Rules#Timer=1 do
+  if %systime% < 12:00
+    event RelayOff
+  else
+    event CheckDayTime
+  endif
+endon
+on CheckDayTime do
+  if %systime% > 22:00
+    event RelayOff
+  else
+    event RelayOn
+  endif
+endon
