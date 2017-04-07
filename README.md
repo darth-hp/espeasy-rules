@@ -3,4 +3,4 @@ I bought the S20 devices to use them as a timer-clock for my aquarium. Sometimes
 
 I had the possibility to do it on my own or to use something already available. It turned out that ESPEasy is capable of doing the job (and even more). It was a little bit tricky to set things up so I decided to collect all information for easy re-use.
 
-Check the [Wiki](wiki) for more.
+Check the [Wiki](../../wiki) for more.
