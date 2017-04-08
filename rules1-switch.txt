@@ -56,7 +56,7 @@ endon
 
 // Set switch state triggered after boot
 on Rules#Timer=1 do
-  if %systime% < 10:00
+  if %systime% < 12:00
     event RelayOff
   else
     event CheckDayTime
