@@ -1,0 +1,71 @@
+// Timer-Clock rule file for ITEAD Sonoff Smart Switch
+// https://www.itead.cc/sonoff-wifi-wireless-switch.html
+
+on System#Boot do
+  // Number of LED on/off to show system is ready
+  event LedOn
+  event LedOff
+  event LedOn
+  event LedOff
+  event LedOn
+  event LedOff
+  // Trigger Rules#Timer=1 after 5 seconds
+  timerSet,1,5
+endon
+
+// Allow local Button switch
+on Button#State do
+ if [Relay#State]=1
+   event RelayOff
+ else
+   event RelayOn
+ endif
+endon
+
+// LED off/on on relay state
+on Relay#State=0 do
+  event LedOff
+endon
+on Relay#State=1 do
+  event LedOn
+endon
+
+// Relay off/on
+on RelayOff do
+  gpio,12,0
+endon
+on RelayOn do
+  gpio,12,1
+endon
+
+// LED off/on
+on LedOff do
+  gpio,13,1
+endon
+on LedOn do
+  gpio,13,0
+endon
+
+// Timer Clock
+on Clock#Time=All,12:00 do
+  event RelayOn
+endon
+on Clock#Time=All,22:00 do
+  event RelayOff
+endon
+
+// Set switch state triggered after boot
+on Rules#Timer=1 do
+  if %systime% < 10:00
+    event RelayOff
+  else
+    event CheckDayTime
+  endif
+endon
+on CheckDayTime do
+  if %systime% > 22:00
+    event RelayOff
+  else
+    event RelayOn
+  endif
+endon
