@@ -7,3 +7,5 @@ I had the possibility to do it on my own or to use something already available. 
 At first this repo was just meant to use it for the switch-timer but now I will collect all ESPEasy rules that I use.
 
 Check the [Wiki](../../wiki) for more.
+
+For information about the ESPEasy rules check the [Rules Tutorial](https://www.letscontrolit.com/wiki/index.php/Tutorial_Rules)
