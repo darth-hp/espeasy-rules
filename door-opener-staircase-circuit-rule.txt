@@ -9,6 +9,8 @@ endon
 // If relay turned on, turn it off after some seconds
 on Relay#State=0 do
   // Adjust the amount of seconds (2) to your needs
+  // Holding the relay for a very short time is good for opening a door
+  // Holding the relay for a longer time is good for a staircase light
   timerSet,1,2
 endon
 
