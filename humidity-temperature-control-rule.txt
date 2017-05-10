@@ -1,0 +1,18 @@
+on RelayOff do
+  gpio,2,1
+endon
+
+on RelayOn do
+  gpio,2,0
+endon
+
+// Using something like <45 & >55 does not trigger to often
+// Use <50 & >50 if you really want to have a certain level
+
+// comparison is only "<,>,=" - "less,greater,equal" - not "<=" or so
+on DHT#Humidity<45 do
+  event RelayOff
+endon
+on DHT#Humidity>55 do
+  event RelayOn
+endon
