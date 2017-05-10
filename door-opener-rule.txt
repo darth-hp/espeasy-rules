@@ -1,0 +1,22 @@
+on RelayOff do
+  gpio,2,1
+endon
+
+on RelayOn do
+  gpio,2,0
+endon
+
+// If relay turned on, turn it off after some seconds
+on Relay#State=0 do
+  // Adjust the amount of seconds (2) to your needs
+  timerSet,1,2
+endon
+
+// Button switch
+on Button#State=0 do
+  event RelayOn
+endon
+
+on Rules#Timer=1 do
+  event RelayOff
+endon
